@@ -10,24 +10,29 @@ export default function Callback() {
   useEffect(() => {
     // console.log(code);
     if (code) {
-      axios.post("http://localhost:3001/login", { code }).then((res) => {
-        if (res) {
-          // const now = new Date()
-          // console.log(Date.now() / 1000)
-          localStorage.setItem("last_update", JSON.stringify(Date.now() / 1000))
-          localStorage.setItem("access_token", res.data.access_token);
-          localStorage.setItem("expires_in", res.data.expires_in);
-          localStorage.setItem("refresh_token", res.data.refresh_token);
+      axios
+        .post("http://localhost:3001/login", { code })
+        .then((res) => {
+          if (res && window) {
+            // const now = new Date()
+            // console.log(Date.now() / 1000)
+            localStorage.setItem(
+              "last_update",
+              JSON.stringify(Date.now() / 1000)
+            );
+            localStorage.setItem("access_token", res.data.access_token);
+            localStorage.setItem("expires_in", res.data.expires_in);
+            localStorage.setItem("refresh_token", res.data.refresh_token);
 
-
-          // localStorage.setItem("timeSaveToken", xd)
-          // push("/")
-          (window as Window).location = "/"
-        }
-        // console.log(res.data);
-      }).catch((error)=>{
-        console.log(error)
-      })
+            // localStorage.setItem("timeSaveToken", xd)
+            // push("/")
+            (window as Window).location = "/";
+          }
+          // console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
     // if (code) {
